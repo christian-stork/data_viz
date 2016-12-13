@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Contractors in the Killchain</title>
+</head>
+<body>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript">
+		
+	var margin = {top:50, right:20, bottom:70, left:70},
+        width  = 800 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+	
+	
+    // parse the date / time
+    var parseDate = d3.timeParse("%Y");
+
+    //set the scales based on time
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+		
+	var line = d3.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return y(d.deaths); })
+        .curve(d3.curveMonotoneX);
+		
+	var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+        
+    var chart = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	d3.csv("strikes_yr.csv", function(error, data) {
+        if (error) throw error;
+        
+    	data.forEach(function(d) {
+            d.year = parseDate(d.year); //parseDate(d.Year);
+            d.deaths = +d["deaths"];
+        });
+		
+		x.domain(d3.extent(data, function(d) { return d.year; }));
+		y.domain(d3.extent(data, function(d) { return d.deaths; }));
+	
+		svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .call(d3.axisLeft(y))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Clandestine Strike Deaths in Yemen, Pakistan and Somalia");
+
+        chart.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("d", line)
+            .style("stroke","steelblue")
+            .style("stroke-width","1.5px")
+            .style("fill","none");
+		
+		
+		svg.append("g")
+			.attr("transform", "translate(" + (width/2) + ", 25)")
+			.append("text")
+			.text("Clandestine Strike Deaths in Yemen, Pakistan and Somalia")
+			.style("font-family", "Helvetica")
+			.style("font-size", "15px");
+		
+		svg.append("text")
+			.attr("x", (margin.left - 120))
+			.attr("y", height/2)
+			.text("Dead in all three war zones")
+			.style("font-family", "Helvetica")
+			.style("font-size", "14px")
+			.attr("transform", "rotate(-90, 50, 220)");
+		
+			
+		svg.append("text")
+			.attr("y", height + 110)
+			.attr("x", width - 700)
+			.text("Source: The Bureau of Investigative Journalism")
+			.style("font-family", "Helvetica")
+			.style("font-size", "10px");
+		
+	
+    });
+		
+	</script>
+</body>
+</html>
