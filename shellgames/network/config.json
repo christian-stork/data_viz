@@ -1,0 +1,52 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "data.json",
+  "logo": {
+    "file": "",
+    "link": "",
+    "text": "Christian Stork"
+  },
+  "text": {
+    "more": "This visualization is part of an ongoing investigation into money laundering activities in the U.S. It is primarily an analysis tool. It measures the relationships of individuals and companies over time, helping spot and map links between people and entities that might otherwise elude investigators. Those connections are detailed in thousands of pages of corporate filings, federal records and court documents. All associated names will remain anonymous until the investigation is complete and story published, with those implicated given the opportunity to comment.",
+    "title": "SHELL GAMES"
+  },
+  "legend": {
+    "edgeLabel": "Connections",
+    "colorLabel": "By Type",
+    "nodeLabel": "People, Places, Companies, Assets"
+  },
+  "features": {
+    "search": true,
+    "groupSelectorAttribute": "type",
+    "hoverBehavior": "default"
+  },
+  "informationPanel": {
+    "groupByEdgeDirection": false,
+    "imageAttribute": false
+  },
+  "sigma": {
+    "drawingProperties": {
+      "defaultEdgeType": "curve",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd",
+      "activeFontStyle": "bold",
+      "defaultLabelColor": "#000",
+      "labelThreshold": 10,
+      "defaultLabelHoverColor": "#fff",
+      "fontStyle": "bold",
+      "hoverFontStyle": "bold",
+      "defaultLabelSize": 12
+    },
+    "graphProperties": {
+      "maxEdgeSize": 0.9,
+      "minEdgeSize": 0.3,
+      "minNodeSize": 3,
+      "maxNodeSize": 11
+    },
+    "mouseProperties": {
+      "maxRatio": 20,
+      "minRatio": 0.75
+    }
+  }
+}
